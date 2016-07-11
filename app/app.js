@@ -1,10 +1,11 @@
-var myNinjaApp = angular.module('myNinjaApp', ['ngRoute']);
+var myNinjaApp = angular.module('myNinjaApp', ['ngRoute', 'ngAnimate']);
 
 myNinjaApp.config(['$routeProvider', function($routeProvider){
 
 	$routeProvider
 		.when('/home', {
-			templateUrl: 'views/home.html'
+			templateUrl: 'views/home.html',
+			controller: 'NinjaController'
 		})
 		.when('/directory', {
 			templateUrl: 'views/directory.html',
@@ -15,7 +16,26 @@ myNinjaApp.config(['$routeProvider', function($routeProvider){
 
 }]);
 
-myNinjaApp.controller('NinjaController', function($scope){
+myNinjaApp.directive('randomNinja', [function(){
+
+	return {
+		restrict: 'E',
+		scope: {
+			ninjas: '=',
+			title: '='
+		},
+		templateUrl: 'views/random.html',
+		transclude: true,
+		replace:true,
+		controller: function($scope){
+			$scope.random =  Math.floor(Math.random() * 3)
+
+		}
+	};
+
+}]);
+
+myNinjaApp.controller('NinjaController', ['$scope', '$http', function($scope, $http){
 
 	$scope.removeNinja = function(ninja){
 		var removeNinja = $scope.ninjas.indexOf(ninja);
@@ -36,33 +56,10 @@ myNinjaApp.controller('NinjaController', function($scope){
 
 	};
 
-	$scope.ninjas = [
-	{
-		name: "yoshi",
-		belt: "green",
-		rate: 50,
-		available: true,
-		thumb: "../content/images/yoshi.png"
-	},
-	{
-		name: "crystal",
-		belt: "yellow",
-		rate: 30,
-		available: true,
-		thumb: "../content/images/mario.png"
-	},
-	{
-		name: "ryu",
-		belt: "black",
-		rate: 10,
-		available: true,
-		thumb: "../content/images/ryu.png"
-	},
-	
-	
 
 
-];
+	$http.get('data/ninjas.json').success(function(data){
+		$scope.ninjas = data;
+	});
 
-
-});
+}]);

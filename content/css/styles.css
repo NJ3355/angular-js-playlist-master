@@ -13,9 +13,20 @@ h1,h2,h3{
   margin-left: 5px;
   color: #fff;
   font-size: 15px;
+
   text-transform: uppercase;
 }
-
+.remove {
+  float: right;
+  padding: 5px;
+  background: #fff;
+  width: 18px;
+  text-align: center;
+  border-radius: 20px;
+  color: crimson;
+  cursor: pointer;
+  margin-left: 10px;
+}
 #menu-bar{
   background: crimson;
   color: #fff;
@@ -108,18 +119,17 @@ main{
   margin: 15px auto;
 }
 
-.remove{
-  float: right;
-  padding: 5px;
-  background: #fff;
-  width: 18px;
-  text-align: center;
-  border-radius: 20px;
-  color: crimson;
-  cursor: pointer;
-  margin-left: 10px;
-}
+.content textarea{
+  width: 90%;
+  padding: 10px 5%;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  margin: 10px 0;
+}﻿
 
+
+
+/*
 /*ANIMATIONS*/
 
 /* The starting CSS styles for the enter animation */
@@ -155,3 +165,21 @@ main.ng-enter.ng-enter-active {
   transform:translateX(-100%);
 }
 
+#ninja-list li.ng-leave-stagger {
+  transition-delay:0.2s;
+  transition-duration:0;
+}
+
+#ninja-list li.ng-enter-stagger {
+  transition-delay:0.2s;
+  transition-duration:0;
+}
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border: 2px solid red;
+}
+
+input[disabled="disabled"] {
+  opacity: 0.4;
+  cursor: not-allowed !important;
+}
